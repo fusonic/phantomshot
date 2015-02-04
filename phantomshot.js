@@ -1,8 +1,3 @@
-/*
- * You should use a PhantomJS build with web-font support:
- * https://drive.google.com/a/fusonic.net/folderview?id=0B4Wl57IYdOIPZVl3VFU4TFdVVTg&usp=sharing#list
- */
-
 var fs = require('fs');
 var system = require("system");
 var webpage = require("webpage");
