@@ -1,9 +1,15 @@
 PhantomShot is a simple JavaScript library that enables you to take predefined screenshots from web pages using the headless WebKit PhantomJS. Viewports and screenshot URLs are defined in a configuration file.
 
+### Features
+
 * Shoot multiple screenshots in a row
 * Define custom viewport sizes and device pixel ratios
 * Take screenshots of pages that require login
 * Only save portions of the screen (clipping)
+
+### Use cases
+
+Keep screenshots up to date in documentation content, user manuals or on your product website.
 
 __This is a very, very early working prototype. Do not expect too much in terms of error handling or code quality.__
 
