@@ -5,6 +5,8 @@ PhantomShot is a simple JavaScript library that enables you to take predefined s
 * Take screenshots of pages that require login
 * Only save portions of the screen (clipping)
 
+__This is a very, very early working prototype. Do not expect too much in terms of error handling or code quality.__
+
 # Usage
 
 ## Basic
@@ -19,7 +21,7 @@ Make sure you are cd'd to the directory of the config file, otherwise it won't w
 
 ## The config file
 
-TBD
+TBD _(take a look at `sample-config.json` in the meantime)_
 
 ## Shooting a page that requires login
 
