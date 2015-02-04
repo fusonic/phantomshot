@@ -43,14 +43,7 @@ function takeScreenshot(shot, callback)
                     document.body.style.width = "33.3333333333%";
                 });
             }
-            /*
 
-            page.evaluate(function () {
-                document.body.style.webkitTransform = "scale(2)";
-                document.body.style.webkitTransformOrigin = "0% 0%";
-                document.body.style.width = "50%";
-            });
-            */
             if (result == "success") {
                 window.setTimeout(function() {
                     var renderResult = page.render(shot.filename);
