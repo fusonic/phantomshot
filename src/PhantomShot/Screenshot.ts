@@ -3,6 +3,7 @@
 module PhantomShot {
     export class Screenshot {
         id: string;
+        delay: number;
         device: Device;
         url: string;
         inject: string;
@@ -17,11 +18,13 @@ module PhantomShot {
                 // the page and cannot access variables in the current scope.
                 PhantomShot.evaluateJavaScript(page, "window.phantomShotTargetElement = " + JSON.stringify(this.element) + ";");
                 return page.evaluate(function() {
+                    var element = document.querySelector((<any>window).phantomShotTargetElement);
+                    var rectangle = element.getBoundingClientRect();
                     return {
-                        top: 0,
-                        left: 0,
-                        width: 300,
-                        height: 300
+                        top: rectangle.top,
+                        left: rectangle.left,
+                        width: rectangle.right - rectangle.left,
+                        height: rectangle.bottom - rectangle.top
                     };
                 });
             }

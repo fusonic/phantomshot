@@ -93,10 +93,22 @@ module PhantomShot {
                 config.url,
                 (result: string) => {
                     if (result == "success") {
+                        // Get the target rectangle
                         var rectangle = config.getTargetRectangle(page);
                         page.clipRect = rectangle;
-                        page.render(this.getTargetFilename(config));
-                        callback(true);
+
+                        // Inject javascript code
+                        if (config.inject) {
+                            PhantomShot.evaluateJavaScript(page, config.inject);
+                        }
+
+                        window.setTimeout(() => {
+                            // Render the page
+                            page.render(this.getTargetFilename(config));
+
+                            // Finish shot
+                            callback(true);
+                        }, config.delay ? config.delay : 0);
                     } else {
                         callback(false);
                     }
@@ -116,8 +128,10 @@ module PhantomShot {
                 // Instantiate basic screenshot class
                 var screenshot = new Screenshot();
                 screenshot.id = config.id;
+                screenshot.inject = config.inject;
                 screenshot.url = this.buildFullUrl(config.url);
                 screenshot.device = this.getDeviceById(config.device);
+                screenshot.delay = config.delay;
 
                 // Element or region mode
                 if (config.element) {

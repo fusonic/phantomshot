@@ -47,7 +47,8 @@
       "id": "inject-code",
       "url": "startseite",
       "device": "desktop",
-      "inject": "$('.microblogMicroblogStreamEditor textarea').focus();"
+      "inject": "$('.microblogMicroblogStreamEditor textarea').css('backgroundColor', 'red');",
+      "delay": 1000
     }
   ]
 }
