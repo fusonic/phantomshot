@@ -6,26 +6,30 @@
     "url": "login",
     "inject": "location.href = $('.login-link:first').attr('href');"
   },
-  "screens": {
-    "desktop": {
+  "devices": [
+    {
+      "id": "desktop",
       "width": 1280,
       "height": 720,
       "ratio": 1
     },
-    "nexus5": {
+    {
+      "id": "nexus5",
       "width": 360,
       "height": 640,
       "ratio": 2
     }
-  },
-  "shots": {
-    "default-shot": {
+  ],
+  "shots": [
+    {
+      "id": "default-shot",
       "url": "startseite",
-      "screen": "desktop"
+      "device": "desktop"
     },
-    "clipped-shot": {
+    {
+      "id": "clipped-shot",
       "url": "startseite",
-      "screen": "desktop",
+      "device": "desktop",
       "region": {
         "left": 100,
         "top": 100,
@@ -33,15 +37,17 @@
         "height": 20
       }
     },
-    "dom-element": {
+    {
+      "id": "dom-element",
       "url": "startseite",
-      "screen": "desktop",
+      "device": "desktop",
       "element": ".streamEditorWidget"
     },
-    "inject-code": {
+    {
+      "id": "inject-code",
       "url": "startseite",
-      "screen": "desktop",
+      "device": "desktop",
       "inject": "$('.microblogMicroblogStreamEditor textarea').focus();"
     }
-  }
+  ]
 }
