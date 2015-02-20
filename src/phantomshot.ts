@@ -1,3 +1,5 @@
+/// <reference path="../typings/tsd.d.ts" />
+
 var fs = require('fs');
 var system = require("system");
 var webpage = require("webpage");
