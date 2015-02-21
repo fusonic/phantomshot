@@ -11,6 +11,8 @@ module PhantomShot {
         private configuration: IConfiguration;
         private page: WebPage;
 
+        private defaultTimeout: number = 10 * 1000;
+
         private isLoading: boolean;
         private finishedCallback: (result: number) => void;
 
@@ -57,9 +59,9 @@ module PhantomShot {
 
                         // Now wait until page load has finished (user JS should trigger referral)
                         var timeout = window.setTimeout(() => {
-                            window.clearInterval(interval);
-                            this.takeScreenshots();
-                        }, 10 * 1000);
+                            console.error("Login timed out");
+                            this.finishedCallback(1);
+                        }, this.defaultTimeout);
                         var interval = window.setInterval(() => {
                             if (!this.isLoading) {
                                 window.clearTimeout(timeout);
@@ -98,6 +100,13 @@ module PhantomShot {
         private takeScreenshot(config: Screenshot, callback: (result: boolean) => void): void {
             var page = this.page;
 
+            var timeout = window.setTimeout(() => {
+                try {
+                    page.close();
+                    callback(false);
+                } catch (ex) {}
+            }, this.defaultTimeout);
+
             page.viewportSize = config.device.getViewportSize();
 
             page.open(
@@ -105,17 +114,31 @@ module PhantomShot {
                 (result: string) => {
                     if (result == "success") {
                         // Get the target rectangle
-                        var rectangle = config.getTargetRectangle(page);
-                        page.clipRect = rectangle;
+                        try {
+                            var rectangle = config.getTargetRectangle(page);
+                            page.clipRect = rectangle;
+                        } catch (ex) {
+                            console.error(ex);
+                            callback(false);
+                        }
 
                         // Inject javascript code
                         if (config.inject) {
-                            PhantomShot.evaluateJavaScript(page, config.inject);
+                            try {
+                                PhantomShot.evaluateJavaScript(page, config.inject);
+                            } catch (ex) {
+                                console.error("Error executing JavaScript code");
+                                console.error(ex);
+                                callback(false);
+                            }
                         }
 
                         window.setTimeout(() => {
                             // Render the page
                             page.render(this.getTargetFilename(config));
+
+                            // Clear timeout
+                            window.clearTimeout(timeout);
 
                             // Finish shot
                             callback(true);
@@ -176,6 +199,10 @@ module PhantomShot {
             console.info("Reading config from " + path);
             var data = this.filesystem.read(path);
             this.configuration = JSON.parse(data);
+
+            if (this.configuration.timeout) {
+                this.defaultTimeout = this.configuration.timeout * 1000;
+            }
         }
     }
 }

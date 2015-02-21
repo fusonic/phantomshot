@@ -2,6 +2,7 @@
   "baseUrl": "http://demo.ribbl.com/install/10979_646bf/",
   "format": "png",
   "outDir": "output",
+  "timeout": 10,
   "login": {
     "url": "login",
     "inject": "location.href = $('.login-link:first').attr('href');"

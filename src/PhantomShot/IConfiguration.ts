@@ -8,5 +8,6 @@ module PhantomShot {
         devices: IDevice[];
         shots: IScreenshot[];
         login: ILogin;
+        timeout?: number;
     }
 }
