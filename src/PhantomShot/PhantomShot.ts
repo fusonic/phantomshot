@@ -79,10 +79,11 @@ module PhantomShot {
         }
 
         public static evaluateJavaScript(page: WebPage, code: string): void {
+            var tmpScriptName = "phantomjs" + Math.round(Math.random() * 1000) + ".js";
             var fs = require("fs");
-            fs.write("tmpscript.js", code);
-            page.injectJs("tmpscript.js");
-            fs.remove("tmpscript.js");
+            fs.write(tmpScriptName, code);
+            page.injectJs(tmpScriptName);
+            fs.remove(tmpScriptName);
         }
 
         private getDeviceById(id: string): Device {
