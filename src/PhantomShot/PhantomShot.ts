@@ -45,7 +45,7 @@ module PhantomShot {
         }
 
         private buildFullUrl(path: string): string {
-            return this.configuration.baseUrl + "/" + path;
+            return this.configuration.baseUrl + path;
         }
 
         private loginAndTakeScreenshots(): void {
