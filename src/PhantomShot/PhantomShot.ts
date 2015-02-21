@@ -68,6 +68,7 @@ module PhantomShot {
                             }
                         });
                     } else {
+                        console.error("Login failed");
                         this.finishedCallback(1);
                     }
 
