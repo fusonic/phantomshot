@@ -3,4 +3,4 @@
 var system = require("system");
 
 var phantomShot = new PhantomShot.PhantomShot(system.args[1]);
-phantomShot.run(() => { phantom.exit(); });
+phantomShot.run((result) => { phantom.exit(result); });

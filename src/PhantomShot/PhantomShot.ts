@@ -12,7 +12,7 @@ module PhantomShot {
         private page: WebPage;
 
         private isLoading: boolean;
-        private finishedCallback: () => void;
+        private finishedCallback: (result: number) => void;
 
         constructor(configFilePath: string) {
             this.configurationPath = configFilePath;
@@ -27,7 +27,7 @@ module PhantomShot {
             };
         }
 
-        run(finishedCallback: () => void): void {
+        run(finishedCallback: (result: number) => void): void {
             // Save finishedCallback
             this.finishedCallback = finishedCallback;
 
@@ -51,16 +51,26 @@ module PhantomShot {
                 this.buildFullUrl(this.configuration.login.url),
                 (result: string) => {
 
-                    console.log("Opened login page");
-                    PhantomShot.evaluateJavaScript(this.page, this.configuration.login.inject);
+                    if (result == "success") {
+                        console.log("Opened login page");
+                        PhantomShot.evaluateJavaScript(this.page, this.configuration.login.inject);
 
-                    // Now wait until page load has finished (user JS should trigger referral)
-                    var interval = window.setInterval(() => {
-                        if (!this.isLoading) {
+                        // Now wait until page load has finished (user JS should trigger referral)
+                        var timeout = window.setTimeout(() => {
                             window.clearInterval(interval);
                             this.takeScreenshots();
-                        }
-                    });
+                        }, 10 * 1000);
+                        var interval = window.setInterval(() => {
+                            if (!this.isLoading) {
+                                window.clearTimeout(timeout);
+                                window.clearInterval(interval);
+                                this.takeScreenshots();
+                            }
+                        });
+                    } else {
+                        this.finishedCallback(1);
+                    }
+
                 }
             );
         }
@@ -147,7 +157,7 @@ module PhantomShot {
                         console.info((currentShot + 1) + ". " + (result ? "SUCCESS" : "ERROR") + ": " + screenshot.id + " (" + screenshot.url + ")")
 
                         if (currentShot == this.configuration.shots.length - 1) {
-                            this.finishedCallback();
+                            this.finishedCallback(0);
                         } else {
                             currentShot++;
                             processShot();
