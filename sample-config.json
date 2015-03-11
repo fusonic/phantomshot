@@ -1,37 +1,55 @@
 {
-    "baseUrl": "http://stackoverflow.com/",
-    "format": "png",
-    "outDir": "output",
-    "screens": {
-        "desktop": {
-            "width": 1280,
-            "height": 720,
-            "ratio": 1
-        },
-        "nexus5": {
-            "width": 360,
-            "height": 640,
-            "ratio": 2
-        }
+  "baseUrl": "http://demo.ribbl.com/install/10979_646bf/",
+  "format": "png",
+  "outDir": "output",
+  "timeout": 10,
+  "login": {
+    "url": "login",
+    "inject": "location.href = $('.login-link:first').attr('href');"
+  },
+  "devices": [
+    {
+      "id": "desktop",
+      "width": 1280,
+      "height": 720,
+      "ratio": 1
     },
-    "shots": {
-        "start-desktop": {
-            "url": "",
-            "screen": "desktop"
-        },
-        "start-mobile": {
-            "url": "",
-            "screen": "nexus5"
-        },
-        "unanswered-questions": {
-            "url": "unanswered",
-            "screen": "desktop",
-            "clip": {
-                "left": 910,
-                "top": 140,
-                "width": 200,
-                "height": 70
-            }
-        }
+    {
+      "id": "nexus5",
+      "width": 360,
+      "height": 640,
+      "ratio": 2
     }
+  ],
+  "shots": [
+    {
+      "id": "default-shot",
+      "url": "startseite",
+      "device": "desktop"
+    },
+    {
+      "id": "clipped-shot",
+      "url": "startseite",
+      "device": "desktop",
+      "region": {
+        "left": 100,
+        "top": 100,
+        "width": 500,
+        "height": 20
+      }
+    },
+    {
+      "id": "dom-element",
+      "url": "startseite",
+      "device": "desktop",
+      "element": ".streamEditorWidget"
+    },
+    {
+      "id": "inject-code",
+      "url": "startseite",
+      "device": "desktop",
+      "inject": "$('.microblogMicroblogStreamEditor textarea').css('backgroundColor', 'red');",
+      "delay": 1000
+    }
+  ]
 }

@@ -1,23 +1,16 @@
 {
   "name": "phantomshot",
   "version": "0.1.0",
-  "description": "A small JavaScript library to take multiple predefined screenshots of web-pages using PhantomJS.",
-  "main": "phantomshot.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/fusonic/phantomshot.git"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "phantomjs": "latest"
-  },
   "devDependencies": {
-    "tsd": "latest",
-    "typescript": "latest",
-    "gulp": "latest",
-    "gulp-typescript": "latest"
+    "gulp": "^3.8.11",
+    "gulp-typescript": "^2.4.2",
+    "tsd": "^0.5.7"
   },
-  "scripts": {
-    "postinstall": "tsd reinstall"
+  "dependencies": {
+    "gulp-concat": "^2.5.1",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-uglify": "^1.1.0",
+    "gulp-uglifyjs": "^0.6.0",
+    "gulp-watch": "^4.1.1"
   }
 }
