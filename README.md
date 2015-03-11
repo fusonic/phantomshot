@@ -42,6 +42,30 @@ Add a small block of login information to your `config.json`:
 
 Before taking screenshots the specified URL will be called. After pageload the login script will be injected into the page. It should fill the required form fields and sumit the login form (see `sample-login.js`). PhantomShot starts taking screenshots after the login has been performed.
 
+# Building
+
+## Requirements
+
+You need to have node up and running, then:
+
+```
+npm install -g gulp tsd
+```
+
+After checking out the phantomshot repository, install dependencies:
+
+```
+npm i && tsd reinstall --save
+```
+
+A build task is configured in gulp
+
+```
+gulp build
+# or
+gulp watch
+```
+
 # Misc
 
 ## About PhantomJS

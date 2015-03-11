@@ -114,15 +114,6 @@ module PhantomShot {
                 config.url,
                 (result: string) => {
                     if (result == "success") {
-                        // Get the target rectangle
-                        try {
-                            var rectangle = config.getTargetRectangle(page);
-                            page.clipRect = rectangle;
-                        } catch (ex) {
-                            console.error(ex);
-                            callback(false);
-                        }
-
                         // Inject javascript code
                         if (config.inject) {
                             try {
@@ -135,6 +126,15 @@ module PhantomShot {
                         }
 
                         window.setTimeout(() => {
+                            // Get the target rectangle
+                            try {
+                                var rectangle = config.getTargetRectangle(page);
+                                page.clipRect = rectangle;
+                            } catch (ex) {
+                                console.error(ex);
+                                callback(false);
+                            }
+
                             // Render the page
                             page.render(this.getTargetFilename(config));
 
